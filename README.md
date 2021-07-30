@@ -1,16 +1,42 @@
 # flutter_analytics_context
 
-A new Flutter project.
+A simple way to pass analytics context maps through the widget tree.
 
-## Getting Started
+```dart
+@override
+Widget build(BuildContext context) {
+  return AnalyticsContext(
+    data: {'screen': 'HomeScreen'},
+    child: Scaffold( ... ),
+  );
+}
+```
 
-This project is a starting point for a Flutter application.
+Children merge parent maps
 
-A few resources to get you started if this is your first Flutter project:
+```dart
+/// pseudocode
+AnalyticsContext: {'environment': 'dev'}
+    AnalyticsContext: {'my_user_id': myUserId}
+        AnalyticsContext: {'screen': 'HomeScreen'}
+            AnalyticsContext: {'tab': 'Following'}
+                AnalyticsContext: {'user_id': userId}
+                    context.analyticsEvent('block_user') // a
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Triggering A sends an event like so:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```json
+{
+  "name": "block_user",
+  "data": {
+    "environment": "dev",
+    "my_user_id": "7a65e4af45ef",
+    "screen": "HomeScreen",
+    "tab": "Following",
+    "user_id": "adf76ae7676adf"
+  }
+}
+```
+
+![](docs/flutter_analytics_context.gif)

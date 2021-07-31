@@ -17,11 +17,11 @@ Children merge parent maps
 ```dart
 /// pseudocode
 AnalyticsContext: {'environment': 'dev'}
-    AnalyticsContext: {'my_user_id': myUserId}
-        AnalyticsContext: {'screen': 'HomeScreen'}
-            AnalyticsContext: {'tab': 'Following'}
-                AnalyticsContext: {'user_id': userId}
-                    context.analyticsEvent('block_user') // a
+  AnalyticsContext: {'my_user_id': myUserId}
+    AnalyticsContext: {'screen': 'HomeScreen'}
+      AnalyticsContext: {'tab': 'Following'}
+        AnalyticsContext: {'user_id': userId}
+          context.analyticsEvent('block_user') // a
 ```
 
 Triggering A sends an event like so:
